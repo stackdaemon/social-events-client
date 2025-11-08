@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import { Outlet } from 'react-router';
-import Foooter from '../components/Foooter';
+import Footer from '../components/Footer'
 
 const Rootlayout = () => {
      return (
@@ -10,7 +10,7 @@ const Rootlayout = () => {
                <div className=' w-11/12 mx-auto flex-1'>
                <Outlet></Outlet>
                </div>
-               <Foooter></Foooter>
+               <Footer></Footer>
           </div>
      );
 };
