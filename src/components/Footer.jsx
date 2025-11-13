@@ -3,12 +3,12 @@ import { Facebook, Instagram, Linkedin, Mails } from "lucide-react";
 const Footer = () => {
   return (
     <div>
-      <footer className="bg-[#001931] text-gray-300  py-12">
+      <footer className="bg-[#035b4c] dark:bg-[#1c1c1e]  text-gray-300  py-12">
         <div className="grid md:grid-cols-5 gap-8 w-11/12 mx-auto">
           <div>
             <div>
               {/* <img className="w-13 inline mr-2" src={logo} alt="" /> */}
-              <span className="text-lg font-bold text-violet-500">Social <span className="text-secondary"> Events</span> </span>
+              <span className="text-lg font-bold text-red-500">Social <span className="text-white"> Events</span> </span>
             </div>
             <p className="text-sm mt-4">
               Hero is your ultimate productivity companion — designed to help
