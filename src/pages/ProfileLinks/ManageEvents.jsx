@@ -6,7 +6,7 @@ import Loading from '../Private/Loading'
 const ManageEvents = () => {
   const { user } = useContext(AuthContext); 
   const [models, setModels] = useState([]);
-  const [loading, setLoading] = useState(true);
+ 
   const navigate =useNavigate()
 
   useEffect(() => {
@@ -15,21 +15,18 @@ const ManageEvents = () => {
       .then((res) => res.json())
       .then((data) => {
         setModels(data);
-        setLoading(false);
+       
       })
       .catch((err) => {
         console.error(err);
-        setLoading(false);
+        
       });
   }, [user]);
 
   if(!user){
     return navigate('/login')
   }
-  if (loading) {
-    return <Loading></Loading>;
-  }
-
+ 
   return (
     <div className="max-w-7xl mx-auto p-6">
       <h2 className="text-3xl font-bold text-center mb-8">Manage My Events</h2>

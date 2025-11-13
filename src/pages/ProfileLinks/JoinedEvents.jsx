@@ -6,13 +6,13 @@ import { useNavigate } from "react-router";
 const JoinedEventsTable = () => {
   const { user } = useContext(AuthContext); 
   const [joinedEvents, setJoinedEvents] = useState([]);
-  const [loading, setLoading] = useState(true); 
+ 
   const navigate =useNavigate()
 
   useEffect(() => {
     if (!user?.email) return;
 
-    setLoading(true); 
+   
     fetch(`https://social-events-weld.vercel.app/joined-event?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
@@ -20,11 +20,11 @@ const JoinedEventsTable = () => {
           (a, b) => new Date(a.eventDate) - new Date(b.eventDate)
         );
         setJoinedEvents(sorted);
-        setLoading(false);
+     
       })
       .catch((err) => {
         console.error(err);
-        setLoading(false);
+
       });
   }, [user]);
 
@@ -32,9 +32,6 @@ const JoinedEventsTable = () => {
     return navigate('/login')
   }
 
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <div className="min-h-screen py-12">
