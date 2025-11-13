@@ -43,6 +43,10 @@ const CreateEvents = () => {
       });
   };
 
+  if(!user){
+    return navigate('/login')
+  }
+
   return (
     <div className="max-w-2xl mx-auto p-6 border border-gray-200 shadow-md  dark:bg-[#1c1c1f]  rounded-lg my-10">
       <h2 className="text-2xl font-bold mb-6 text-center">Create Event</h2>

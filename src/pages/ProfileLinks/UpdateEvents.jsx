@@ -4,11 +4,13 @@ import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
 
 const UpdateEvents = () => {
-  const [eventDate, setEventDate] = useState(null);
   const data = useLoaderData();
   const navigate = useNavigate();
   const event = data.result;
-  console.log(data);
+
+  const [selectedDate, setSelectedDate] = useState(
+    event?.eventDate ? new Date(event.eventDate) : null
+  );
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -17,9 +19,10 @@ const UpdateEvents = () => {
       description: e.target.description.value,
       eventType: e.target.select.value,
       thumbnailUrl: e.target.imageUrl.value,
-      eventDate: e.target.date.value,
+      eventDate: selectedDate || event.eventDate, 
       location: e.target.location.value,
     };
+
     fetch(`https://social-events-weld.vercel.app/events/${event._id}`, {
       method: "PUT",
       headers: {
@@ -28,10 +31,9 @@ const UpdateEvents = () => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-
       .then((data) => {
         console.log(data);
-        toast.success("Successful Updated!");
+        toast.success("Successfully Updated!");
         navigate("/manage_event");
       })
       .catch((err) => {
@@ -41,7 +43,7 @@ const UpdateEvents = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-[#1c1c1f] border dark:border-gray-700  rounded-lg my-10">
+    <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-[#1c1c1f] border dark:border-gray-700 rounded-lg my-10">
       <h2 className="text-2xl font-bold mb-6 text-center">Update Event</h2>
 
       <form onSubmit={handleUpdate} className="flex flex-col gap-4">
@@ -117,12 +119,11 @@ const UpdateEvents = () => {
         <div>
           <label className="block font-medium mb-1">Event Date</label>
           <DatePicker
-            selected={eventDate}
-            onChange={(date) => setEventDate(date)}
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
             minDate={new Date()}
             name="date"
             required
-            defaultValue={event.eventDate}
             placeholderText="Select event date"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
           />

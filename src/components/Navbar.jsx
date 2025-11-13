@@ -121,21 +121,21 @@ const Navbar = () => {
               <div className="divider"></div>
               <ul>
                 <li>
-                  <Link to={"creat_event"}>
+                  <Link to={"/creat_event"}>
                     {" "}
                     <SquarePen size={18} className="text-[#02705e] " /> Creat
                     Event{" "}
                   </Link>
                 </li>
                 <li>
-                  <Link to={"manage_event"}>
+                  <Link to={"/manage_event"}>
                     {" "}
                     <Settings size={18} className="text-[#02705e] " />
                     Manage Events{" "}
                   </Link>
                 </li>
                 <li>
-                  <Link to={"joined_event"}>
+                  <Link to={"/joined_event"}>
                     {" "}
                     <Users size={18} className="text-[#02705e] " /> Joined
                     Events{" "}

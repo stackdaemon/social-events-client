@@ -4,6 +4,8 @@ import { AuthContext } from "../Auth/AuthContext";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { FcGoogle } from "react-icons/fc";
+import { motion } from 'framer-motion';
+import { fadeIn } from "../../variants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -48,8 +50,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  px-4">
+    <motion.div
+     variants={fadeIn("up",0.2)}
+      initial="hidden"
+      whileInView={"show"}
+      viewport={{once:false,amount:0.3}}
+    
+    className="min-h-screen flex items-center justify-center  px-4 ">
       <form
+      
         onSubmit={handleLogin}
         className="bg-white dark:bg-[#1e2838] border border-gray-200 dark:border-gray-700 p-8 rounded-2xl shadow-lg w-full max-w-md"
       >
@@ -116,7 +125,7 @@ const Login = () => {
           </Link>
         </p>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

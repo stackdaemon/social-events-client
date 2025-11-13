@@ -1,25 +1,40 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Auth/AuthContext";
-import toast from "react-hot-toast";
+import Loading from "../Private/Loading";
+import { useNavigate } from "react-router";
 
 const JoinedEventsTable = () => {
-  const { user } = use(AuthContext);
+  const { user } = useContext(AuthContext); 
   const [joinedEvents, setJoinedEvents] = useState([]);
+  const [loading, setLoading] = useState(true); 
+  const navigate =useNavigate()
 
   useEffect(() => {
     if (!user?.email) return;
-    fetch(
-      `https://social-events-weld.vercel.app/joined-event?email=${user.email}`
-    )
+
+    setLoading(true); 
+    fetch(`https://social-events-weld.vercel.app/joined-event?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         const sorted = data.sort(
           (a, b) => new Date(a.eventDate) - new Date(b.eventDate)
         );
         setJoinedEvents(sorted);
+        setLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   }, [user]);
+
+  if(!user ){
+    return navigate('/login')
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen py-12">
@@ -57,7 +72,7 @@ const JoinedEventsTable = () => {
               {joinedEvents.map((event) => (
                 <tr
                   key={event._id}
-                  className="hover:bg-gray-50 hover:dark:bg-gray-600 transition"
+                  className="hover:bg-gray-50 dark:hover:bg-gray-700 transition"
                 >
                   <td className="py-3 px-6">
                     <img
@@ -76,7 +91,8 @@ const JoinedEventsTable = () => {
                     {event.location}
                   </td>
                   <td className="py-3 px-6 text-gray-600 dark:text-gray-400">
-                    {event.eventDate}
+                    {new Date(event.eventDate).toLocaleDateString()}
+                    {/* readable date */}
                   </td>
                   <td className="py-3 px-6 text-center">
                     <button

@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Auth/AuthContext";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { motion } from 'framer-motion';
+import { fadeIn } from "../../variants";
 
 const Register = () => {
   const { createUser,updateUserProfile } = use(AuthContext);
@@ -49,7 +51,13 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  px-4">
+    <motion.div
+    variants={fadeIn("up",0.2)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{once:false,amount:0.3}}
+    
+    className="min-h-screen flex items-center justify-center  px-4">
       <form
         onSubmit={handleRegister}
         className="bg-white dark:bg-[#1e2838] border border-gray-200 dark:border-gray-700 p-8 rounded-2xl shadow-lg w-full max-w-md"
@@ -102,7 +110,7 @@ const Register = () => {
           </Link>
         </p>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

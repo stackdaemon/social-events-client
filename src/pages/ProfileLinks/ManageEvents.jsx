@@ -1,37 +1,42 @@
-import React, { useEffect, useState, use } from "react";
-
-import { Link } from "react-router";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Auth/AuthContext";
+import Loading from '../Private/Loading'
 
 const ManageEvents = () => {
-  const { user } = use(AuthContext);
+  const { user } = useContext(AuthContext); 
   const [models, setModels] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(user);
+  const navigate =useNavigate()
+
   useEffect(() => {
     if (!user?.email) return;
-    fetch(
-      `https://social-events-weld.vercel.app/manage_event?email=${user.email}`
-    )
+    fetch(`https://social-events-weld.vercel.app/manage_event?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setModels(data);
         setLoading(false);
       })
-      .catch();
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   }, [user]);
 
+  if(!user){
+    return navigate('/login')
+  }
   if (loading) {
-    return <h3>Please wait .....loading</h3>;
+    return <Loading></Loading>;
   }
 
   return (
     <div className="max-w-7xl mx-auto p-6">
       <h2 className="text-3xl font-bold text-center mb-8">Manage My Events</h2>
 
-      <div className="overflow-x-auto shadow-md rounded-xl ">
-        <table className="min-w-full table-auto">
+      {/* Horizontal scroll wrapper */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full table-auto border border-gray-200 dark:border-gray-700 rounded-xl">
           <thead className="bg-gray-100 dark:bg-[#1c1c1f]">
             <tr>
               <th className="py-3 px-6 text-left">Thumbnail</th>
@@ -43,7 +48,7 @@ const ManageEvents = () => {
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-200 dark:divide-gray-700 ">
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
             {models.map((event) => (
               <tr
                 key={event._id}
@@ -59,10 +64,10 @@ const ManageEvents = () => {
                 <td className="py-3 px-6 font-semibold text-gray-800 dark:text-white">
                   {event.title}
                 </td>
-                <td className="py-3 px-6">{event.eventDate}</td>
+                <td className="py-3 px-6">{new Date(event.eventDate).toLocaleDateString()}</td>
                 <td className="py-3 px-6">{event.eventType}</td>
                 <td className="py-3 px-6">{event.location}</td>
-                <td className="py-3 px-6 text-center space-x-3">
+                <td className="py-3 px-6 text-center space-x-2 flex justify-center">
                   <Link
                     to={`/update/${event._id}`}
                     className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md text-sm"
@@ -70,7 +75,6 @@ const ManageEvents = () => {
                     Update
                   </Link>
                   <button
-                    // onClick={() => handleDelete(event._id)}
                     className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md text-sm"
                   >
                     Delete
