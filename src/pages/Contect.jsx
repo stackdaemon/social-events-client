@@ -17,7 +17,6 @@ const Contect = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your backend API call here
     toast.success("Message sent successfully!");
     setFormData({ name: "", email: "", message: "" });
   };

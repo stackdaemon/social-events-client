@@ -86,6 +86,7 @@ const Login = () => {
           Login
         </button>
         <button
+        type="button"
         onClick={handleGoogleLogin}
         
         className="btn bg-white text-black border-[#e5e5e5] w-full mt-2 dark:bg-[#1e2838] dark:text-white">
