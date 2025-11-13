@@ -1,61 +1,110 @@
-# Social Development Events Platform
+# 🌱 Social Development Events Platform
 
-A community-driven event management platform where users can **create, join, and track social service events** in their local area.
-
-Live Site: [Your Live Site URL Here]([https://your-site-url.com](https://social-events-a10.netlify.app/))
-
----
-
-## Features
-
-- **User Authentication:** Email/password login and Google OAuth login for secure access.  
-- **Create Events:** Logged-in users can create social events with title, description, location, event type, date, and thumbnail image.  
-- **Upcoming Events:** Browse all upcoming events with event cards showing details like title, location, type, date, and a view button.  
-- **Join Events:** Users can join events after logging in, and their participation is stored in the database.  
-- **Manage Events:** Users can view and update events they created. Optional: Delete events.  
-- **Responsive Design:** Fully responsive for mobile, tablet, and desktop devices with a clean, unique UI.  
-- **Theme Toggle:** Switch between Light and Dark modes seamlessly.  
-- **Search & Filter:** Search events by name and filter events by type.  
-- **Animated UI:** Smooth animations using Framer Motion for a better user experience.  
-- **Newsletter Section:** Users can subscribe to newsletters (UI only).  
+## 🎯 Project Purpose
+**Social Development Events Platform** is a community-driven web application where users can **create, join, and track social service events** in their local area.  
+Example: "Road Cleaning in Mirpur 10, Dhaka" or "Tree Plantation - Hossainpur, Kishoreganj".  
+It allows users to browse upcoming events, view details, join events, and manage their created events.
 
 ---
 
-## Pages
-
-- **Home Page (Public):** Banner, Features, Gallery, and Newsletter sections.  
-- **Login / Register Pages:** Email/password authentication with validation and toast notifications.  
-- **Create Event Page (Private):** Form to create a new event with date validation.  
-- **Upcoming Events Page (Public):** Grid layout of upcoming events with “View Event” and “Join Event” buttons.  
-- **Event Details Page (Public):** Shows full event details; joining requires login.  
-- **Joined Events Page (Private):** Displays events the logged-in user has joined.  
-- **Manage Events Page (Private):** Displays events created by the user with update (and optional delete) functionality.  
+## 🌐 Live URL
+🔗 [Live Site](https://social-events-a10.netlify.app/)
 
 ---
 
-## Technologies Used
+## 🗝️ Key Features
+✅ **User Authentication**  
+- Email/password login and Google OAuth login  
+- Password validation (uppercase, lowercase, min 6 characters)  
+- Toast notifications on login, register, and errors  
 
-- **Frontend:** React, React Router, TailwindCSS, React Datepicker, Framer Motion  
-- **Backend:** Node.js, Express.js, MongoDB, JWT/Firebase Authentication  
-- **Hosting:** Netlify / Firebase for client-side, Vercel for server-side  
-- **Notifications:** React Hot Toast / SweetAlert  
+✅ **Create Event (Private Page)**  
+- Only logged-in users can create events  
+- Event fields: Title, Description, Type (Cleanup, Plantation, Donation, etc.), Location, Thumbnail URL, Event Date  
+- Date validation to allow **future dates only**  
+- Success toast on event creation  
+
+✅ **Upcoming Events (Public Page)**  
+- Grid layout of all upcoming events  
+- Each event card shows thumbnail, title, location, type, date, and “View Event” button  
+- Users can join events after logging in  
+
+✅ **Event Details Page (Public)**  
+- Shows full event details  
+- “Join Event” button requires login  
+- Displays who created the event  
+
+✅ **Joined Events Page (Private Page)**  
+- Displays all events joined by the logged-in user  
+- Events sorted by date  
+
+✅ **Manage Events Page (Private Page)**  
+- View all events created by the logged-in user  
+- Update event information  
+- Optional: Delete events  
+
+✅ **Search & Filter Events**  
+- Search events by name  
+- Filter events by type using backend API and MongoDB  
+
+✅ **Theme Toggle**  
+- Light/Dark mode toggle for the full application  
+
+✅ **Interactive UI & Animations**  
+- Framer Motion animations for page transitions  
+- Unique design with consistent headings, buttons, and card layouts  
+- Responsive design for mobile, tablet, and desktop  
 
 ---
 
-## Validation Rules
-
-- Password must include:
-  - At least one uppercase letter  
-  - At least one lowercase letter  
-  - Minimum 6 characters  
-- Event date must be **future date only**  
-- Custom toast/sweet alerts are used for success/error messages  
+## 📦 NPM Packages Used
+| Package | Purpose |
+|---------|---------|
+| **react** | Core React library |
+| **react-dom** | DOM rendering |
+| **react-router-dom** | Routing & Protected Routes |
+| **firebase** | Authentication & config |
+| **tailwindcss** | Styling |
+| **daisyui** | Prebuilt Tailwind components |
+| **react-datepicker** | Event date selection |
+| **react-hot-toast** | Toast notifications |
+| **framer-motion** | Animations |
+| **react-icons / lucide-react** | UI icons |
 
 ---
 
-## Installation & Setup
+## 🧩 Tools & Technologies
+- React + Vite  
+- TailwindCSS + DaisyUI  
+- Firebase Authentication  
+- MongoDB + Express.js backend  
+- Responsive Web Design (RWD)  
+- React Context for authentication and state management  
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/client.git
-   git clone https://github.com/yourusername/server.git
+---
+
+## ⚙️ Run Locally
+```bash
+# Clone the client repository
+git clone https://github.com/your-username/social-events-client.git
+
+# Clone the server repository
+git clone https://github.com/your-username/social-events-server.git
+
+# Navigate to client folder
+cd social-events-client
+
+# Install client dependencies
+npm install
+
+# Run client development server
+npm run dev
+
+# Navigate to server folder
+cd ../social-events-server
+
+# Install server dependencies
+npm install
+
+# Run server
+npm run start
