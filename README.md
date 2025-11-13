@@ -2,7 +2,7 @@
 
 A community-driven event management platform where users can **create, join, and track social service events** in their local area.
 
-Live Site: [Your Live Site URL Here](https://your-site-url.com)
+Live Site: [Your Live Site URL Here]([https://your-site-url.com](https://social-events-a10.netlify.app/))
 
 ---
 
