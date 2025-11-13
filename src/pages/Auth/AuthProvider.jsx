@@ -18,23 +18,23 @@ const AuthProvider = ({ children }) => {
 // console.log(user)
   // creat  user [Register]
   const createUser = (email, password) => {
-    setLoading(true)
+    // setLoading(true)
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   //  update User 
   const updateUserProfile=(displayName,photoURL)=>{
-    setLoading(true)
+    // setLoading(true)
     return updateProfile(auth.currentUser, {displayName, photoURL})
   }
   //Login   user [loing ]
   const signInUser = (email, password) => {
-      setLoading(true)
+      // setLoading(true)
     return signInWithEmailAndPassword(auth, email, password);
   };
 // logout
 const logout =()=>{
-    setLoading(true)
+    // setLoading(true)
     return signOut(auth)
 }
 

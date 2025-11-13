@@ -77,8 +77,8 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="text-center md:text-center text-gray-500 text-sm mt-4">
-          Social Events
+        <div className="text-center md:text-center text-gray-400 text-sm mt-4">
+         &copy;  Social Events
           <br className="block md:hidden" /> All rights reserved.
         </div>
       </footer>
