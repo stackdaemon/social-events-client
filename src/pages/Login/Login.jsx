@@ -119,6 +119,21 @@ const Login = () => {
           </svg>
           Login with Google
         </button>
+        <button
+          type="button"
+          onClick={() => {
+             const form = document.querySelector('form');
+             if(form) {
+                 const emailInput = form.querySelector('input[name="email"]');
+                 const passInput = form.querySelector('input[name="password"]');
+                 if(emailInput) emailInput.value = "demo@example.com";
+                 if(passInput) passInput.value = "Demo1234";
+             }
+          }}
+          className="btn bg-gray-600 text-white w-full mt-2 hover:bg-gray-700"
+        >
+          Demo User (Fill Credentials)
+        </button>
         <p className="text-center mt-4 text-gray-500">
           Don’t have an account?{" "}
           <Link to="/register" className="text-green-600 font-semibold">

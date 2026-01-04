@@ -4,7 +4,7 @@ import { AuthContext } from "../Auth/AuthContext";
 import Loading from '../Private/Loading'
 
 const ManageEvents = () => {
-  const { user } = useContext(AuthContext); 
+  const { user, loading } = useContext(AuthContext); 
   const [models, setModels] = useState([]);
  
   const navigate =useNavigate()
@@ -23,9 +23,13 @@ const ManageEvents = () => {
       });
   }, [user]);
 
-  if(!user){
-    return navigate('/login')
-  }
+  useEffect(() => {
+    if (!user && !loading) {
+        navigate('/login');
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) return <Loading />;
  
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -66,7 +70,7 @@ const ManageEvents = () => {
                 <td className="py-3 px-6">{event.location}</td>
                 <td className="py-3 px-6 text-center space-x-2 flex justify-center">
                   <Link
-                    to={`/update/${event._id}`}
+                    to={`/dashboard/update-event/${event._id}`}
                     className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md text-sm"
                   >
                     Update

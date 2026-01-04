@@ -63,7 +63,7 @@ const Features = () => {
           <p>View your participation history and earned achievements.</p>
         </motion.div>
 
-        <modiv
+        <motion.div
         variants={fadeIn("up",0.2)}
       initial="hidden"
       whileInView={"show"}
@@ -77,7 +77,7 @@ const Features = () => {
           />
           <h3 className="text-xl font-semibold mb-2">Community Impact</h3>
           <p>See how your actions are making a difference around you.</p>
-        </modiv>
+        </motion.div>
       </div>
     </section>
   );

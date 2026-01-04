@@ -2,16 +2,16 @@ import React, { use, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../pages/Auth/AuthContext";
 import toast from "react-hot-toast";
-import { Settings, SquarePen, Users } from "lucide-react";
+import { Settings, SquarePen, Users, LayoutDashboard } from "lucide-react";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md"
 const Navbar = () => {
   const { user, logout } = use(AuthContext);
   const links = (
     <>
       <NavLink to={"/"}>Home</NavLink>
-      <NavLink to={"/upcomming_events"}>Upcomming Events</NavLink>
+      {user && <NavLink to={"/upcomming_events"}>Upcoming Events</NavLink>}
       <NavLink to={"/about"}>About</NavLink>
-      <NavLink to={"/contect"}>Contect</NavLink>
+      <NavLink to={"/contact"}>Contact</NavLink>
       <NavLink to={"/blog"}>Blog</NavLink>
     </>
   );
@@ -39,7 +39,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm lg:px-10">
+    <div className="navbar bg-base-100 shadow-sm lg:px-10 sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="  px-2 lg:hidden">
@@ -82,79 +82,48 @@ const Navbar = () => {
             className="toggle"
           />
         </div>
-        <div className="dropdown dropdown-hover z-20 ">
-          <Link to={"/"}>
-            <div tabIndex={0} role="button" className=" m-1">
-              <img
-                className={` ${
-                  user &&
-                  "w-10 h-10 rounded-full ring-2 mr-2 max-sm:mr-1 cursor-pointer ring-[#02705e] p-[1px]"
-                }`}
-                src={user ? user.photoURL : " "}
-                alt=""
-              />
-            </div>
-          </Link>
-
-          {/* dropdown */}
-
-          <ul
-            tabIndex="-1"
-            className="dropdown-content menu bg-base-100 rounded-box z-1 w-60 p-2 shadow-[0_0_12px_#bbb] absolute -left-20 "
-          >
-            <li>
-              <a className="text-center inline font-bold">
-                {user ? user?.displayName : " "}
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="" className=" mr-1">
-         <MdKeyboardDoubleArrowDown />
-          </div>
-          <ul
-            tabIndex="-1"
-            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-          >
-            <div className="font-bold ">
-              <div className="divider"></div>
-              <ul>
-                <li>
-                  <Link to={"/creat_event"}>
-                    {" "}
-                    <SquarePen size={18} className="text-[#02705e] " /> Creat
-                    Event{" "}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/manage_event"}>
-                    {" "}
-                    <Settings size={18} className="text-[#02705e] " />
-                    Manage Events{" "}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/joined_event"}>
-                    {" "}
-                    <Users size={18} className="text-[#02705e] " /> Joined
-                    Events{" "}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </ul>
-        </div>
 
         {user ? (
-          <button
-            onClick={handlelogout}
-            className=" md:btn max-sm:px-2 py-2 rounded-md bg-[#02705e] text-white"
-          >
-            LogOut
-          </button>
+          <div className="dropdown dropdown-end z-50">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar m-1">
+              <div className="w-10 rounded-full ring-2 ring-[#02705e] ring-offset-2">
+                <img
+                  alt="User"
+                  src={user?.photoURL || "https://i.pravatar.cc/150"}
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-60"
+            >
+              <li>
+                <div className="justify-between font-bold pointer-events-none">
+                  {user?.displayName}
+                </div>
+              </li>
+              <div className="divider my-1"></div>
+              <li>
+                <Link to={"/dashboard/statistics"}>
+                  <LayoutDashboard size={16} className="text-[#02705e]" /> Dashboard
+                </Link>
+              </li>
+              <div className="divider my-1"></div>
+              <li>
+                <button
+                  onClick={handlelogout}
+                  className="text-red-500 hover:bg-red-50 font-semibold"
+                >
+                  LogOut
+                </button>
+              </li>
+            </ul>
+          </div>
         ) : (
-          <Link to={"/login"} className=" md:btn max-sm:px-3 py-2 rounded-md bg-[#02705e] text-white">
+          <Link
+            to={"/login"}
+            className="md:btn max-sm:px-3 py-2 rounded-md bg-[#02705e] text-white"
+          >
             Login
           </Link>
         )}

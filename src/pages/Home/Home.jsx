@@ -8,6 +8,8 @@ import Loading from '../Private/Loading';
 
 
 
+import { Statistics, Testimonials, FAQ, Team, Partners, HowItWorks } from './AdditionalSections';
+
 const Home = () => {
      const {loading}=use(AuthContext)
      if(loading){
@@ -19,15 +21,22 @@ const Home = () => {
             <section>
                <Banner></Banner>
             </section>
+
             <section>
                <Features></Features>
-               </section>  
-               <section>
-                    <Gallery></Gallery>
-               </section>
-                  <section>
-                    <Newsletter></Newsletter>
-               </section>
+            </section>
+            <HowItWorks />
+            <Statistics />
+            <Team />
+            <section>
+                 <Gallery></Gallery>
+            </section>
+            <Partners />
+            <Testimonials />
+            <FAQ />
+            <section>
+                <Newsletter></Newsletter>
+            </section>
               
           </div>
      );

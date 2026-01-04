@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "MD RIFAT HASAN",
+    "role": "MERN Stack Developer",
+    "institute": "CST-4th | BPI",
+    "image": "https://res.cloudinary.com/dqy9dmujq/image/upload/v1766608585/218133274_i1zw1b.jpg",
+    "social": {
+      "email": "mdrifathasan5127@gmail.com",
+      "github": "https://github.com/stackdaemon",
+      "linkedin": "https://www.linkedin.com/in/mdrifathasan-dev/"
+    }
+  },
+  {
+    "id": 2,
+    "name": "ATIUR RAHMAN",
+    "role": "MERN Stack Developer",
+    "institute": "CST-4th | BPI",
+    "image": "https://res.cloudinary.com/dqy9dmujq/image/upload/v1766608737/580080825_1153901656830728_5608885250565721789_n_sn7ep9.jpg",
+    "social": {
+      "email": "mailto:atiur@example.com",
+      "github": "https://github.com/atiurrahman45",
+      "linkedin": "https://linkedin.com/"
+    }
+  },
+  {
+    "id": 3,
+    "name": "FARDIN RAHMAN SOJON",
+    "role": "MERN Stack Developer",
+    "institute": "CST-4th | BPI",
+    "image": "https://res.cloudinary.com/dqy9dmujq/image/upload/v1766608524/214380073_vxwhxa.jpg",
+    "social": {
+      "email": "fardinsojon@gmail.com",
+      "github": "https://github.com/fardin-sojon",
+      "linkedin": "https://www.linkedin.com/in/fardin-sojon/"
+    }
+  },
+  {
+    "id": 4,
+    "name": "REFAT AL HASAN KAIF",
+    "role": "MERN Stack Developer",
+    "institute": "CST-4th | BPI",
+    "image": "https://res.cloudinary.com/dqy9dmujq/image/upload/v1766608628/photo_2025-12-15_23-36-51_rtj73g.jpg",
+    "social": {
+      "email": "mailto:refat@example.com",
+      "github": "https://github.com/refatalhasankaif",
+      "linkedin": "https://www.linkedin.com/in/mdrifathasan-dev/"
+    }
+  }
+]

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import Rootlayout from "../Layouts/Rootlayout";
+import DashboardLayout from "../Layouts/DashboardLayout";
 import Home from "../pages/Home/Home";
 import UpcommingEvents from "../pages/UpcommingEvents";
 import Login from "../pages/Login/Login";
@@ -10,10 +11,14 @@ import ManageEvents from "./../pages/ProfileLinks/ManageEvents";
 import EventDetails from "../pages/EventDetails";
 import UpdateEvents from "../pages/ProfileLinks/UpdateEvents";
 import About from "../pages/About";
-import Contect from "../pages/Contect";
+import Contact from "../pages/Contact";
 import Blog from "../pages/Blog";
 import PrivateRoute from "../pages/Private/PrivateRoute";
 import Error404 from "../pages/Private/Error404";
+import DashboardHome from "../pages/Dashboard/DashboardHome";
+import AdminRoute from "../pages/Private/AdminRoute";
+import ManageUsers from "../pages/Dashboard/ManageUsers";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,41 +43,8 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: "/creat_event",
-        element: (
-          <PrivateRoute>
-            <CreatEvents></CreatEvents>
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/manage_event",
-        element: (
-          <PrivateRoute>
-            {" "}
-            <ManageEvents></ManageEvents>
-          </PrivateRoute>
-        ),
-        loader: () => fetch("https://social-events-weld.vercel.app/events"),
-      },
-      {
-        path: "/joined_event",
-        element: (
-          <PrivateRoute>
-            <JoinedEvents></JoinedEvents>
-          </PrivateRoute>
-        ),
-      },
-      {
         path: "/event_details/:id",
         element: <EventDetails></EventDetails>,
-        loader: ({ params }) =>
-          fetch(`https://social-events-weld.vercel.app/events/${params.id}`),
-      },
-      {
-        path: "/update/:id",
-        element: <UpdateEvents></UpdateEvents>,
-        //  loader: ({params}) => fetch(`https://social-events-weld.vercel.app/joined-event/${params.id}`)
         loader: ({ params }) =>
           fetch(`https://social-events-weld.vercel.app/events/${params.id}`),
       },
@@ -81,18 +53,60 @@ const router = createBrowserRouter([
         element: <About></About>,
       },
       {
-        path: "/contect",
-        element: <Contect></Contect>,
+        path: "/contact",
+        element: <Contact></Contact>,
       },
       {
         path: "/blog",
         element: <Blog></Blog>,
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    errorElement: <Error404 />,
+    children: [
       {
-        path: "*",
-        element: <Error404></Error404>,
+        path: "statistics",
+        element: <DashboardHome />,
+      },
+      {
+        path: "create-event",
+        element: <CreatEvents />,
+      },
+      {
+        path: "manage-events",
+        element: <ManageEvents />,
+      },
+      {
+        path: "joined-events",
+        element: <JoinedEvents />,
+      },
+      {
+        path: "update-event/:id",
+        element: <UpdateEvents />,
+        loader: ({ params }) =>
+          fetch(`https://social-events-weld.vercel.app/events/${params.id}`),
+      },
+      // Admin Routes
+      {
+        path: "all-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Error404></Error404>,
   },
 ]);
 export default router;

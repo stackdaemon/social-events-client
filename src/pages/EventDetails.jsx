@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router";
 import { AuthContext } from "./Auth/AuthContext";
 import toast from "react-hot-toast";
@@ -8,6 +8,20 @@ const EventDetails = () => {
   const navigate = useNavigate();
   const data = useLoaderData();
   const event = data.result;
+  const [relatedEvents, setRelatedEvents] = useState([]);
+
+  useEffect(() => {
+    if (event?.eventType) {
+      fetch(`https://social-events-weld.vercel.app/select?select=${event.eventType}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // Filter out current event and take top 3
+          const related = data.filter((e) => e._id !== event._id).slice(0, 3);
+          setRelatedEvents(related);
+        })
+        .catch((err) => console.error("Error fetching related:", err));
+    }
+  }, [event]);
 
   const handleJoin = (e) => {
     e.preventDefault();
@@ -36,62 +50,120 @@ const EventDetails = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log("Joined event saved:", data);
-          toast.success("Successfull joined !");
-          navigate("/joined_event");
+          toast.success("Successfully joined!");
+          navigate("/dashboard/joined-events");
         });
     }
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
-      <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
-        <div className="flex flex-col md:flex-row gap-8 p-6 md:p-8">
-          {/* Image */}
-          <div className="shrink-0 w-full md:w-1/2">
-            <img
-              src={event.thumbnailUrl}
-              alt={event.title}
-              className="w-full h-72 object-cover rounded-xl shadow-md"
-            />
-          </div>
+    <div className="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 space-y-12">
+      
+      {/* Event Header & Gallery */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Gallery Section */}
+        <div className="space-y-4">
+            <div className="overflow-hidden rounded-2xl shadow-lg h-96">
+                <img
+                src={event.thumbnailUrl}
+                alt={event.title}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+            </div>
+            {/* Mock Gallery Grid */}
+            <div className="grid grid-cols-3 gap-4">
+                 <img 
+                    src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&q=80&w=200" 
+                    className="rounded-lg h-24 w-full object-cover cursor-pointer hover:opacity-80 transition"
+                    alt="Gallery 1"
+                 />
+                 <img 
+                    src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=200" 
+                    className="rounded-lg h-24 w-full object-cover cursor-pointer hover:opacity-80 transition"
+                    alt="Gallery 2"
+                 />
+                 <img 
+                    src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=200" 
+                    className="rounded-lg h-24 w-full object-cover cursor-pointer hover:opacity-80 transition"
+                    alt="Gallery 3"
+                 />
+            </div>
+        </div>
 
-          {/* Text Details */}
-          <div className="flex flex-col justify-center space-y-4 w-full md:w-1/2">
-            <h1 className="text-3xl md:text-4xl font-bold ">{event.title}</h1>
+        {/* Info Section */}
+        <div className="flex flex-col justify-center space-y-6">
+            <h1 className="text-4xl md:text-5xl font-bold dark:text-white leading-tight">{event.title}</h1>
 
             <div className="flex flex-wrap gap-3">
-              <div className="badge badge-lg badge-outline text-green-600 border-green-600 font-medium">
+              <div className="badge badge-lg badge-primary badge-outline font-medium p-3">
                 {event.eventType}
               </div>
-              <div className="badge badge-lg badge-outline text-blue-600 border-blue-600 font-medium">
+              <div className="badge badge-lg badge-secondary badge-outline font-medium p-3">
                 📍 {event.location}
               </div>
-              <div className="badge badge-lg badge-outline text-purple-600 border-purple-600 font-medium">
-                📅 {event.eventDate}
+              <div className="badge badge-lg badge-accent badge-outline font-medium p-3">
+                📅 {new Date(event.eventDate).toLocaleDateString()}
               </div>
             </div>
+            
+            <div className="divider"></div>
 
-            <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
               {event.description}
             </p>
 
-            <div className="flex gap-3 mt-6">
-              <Link to={`/event_details/${event._id}`}>
+            {/* Organize Info (Mock) */}
+             <div className="flex items-center gap-4 bg-base-200 dark:bg-gray-800 p-4 rounded-xl">
+                <div className="avatar">
+                    <div className="w-12 h-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        <img src={event.photoURL || "https://i.pravatar.cc/150"} alt="Organizer" />
+                    </div>
+                </div>
+                <div>
+                     <p className="text-sm font-bold dark:text-white">{event.displayName || "Community Organizer"}</p>
+                     <p className="text-xs text-gray-500">Event Organizer</p>
+                </div>
+             </div>
+
+            <div className="flex flex-wrap gap-4 pt-4">
                 <button
                   type="button"
                   onClick={handleJoin}
-                  className="btn bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6"
+                  className="btn btn-primary btn-lg rounded-full px-8 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all"
                 >
-                  Join Event
+                  Join Event Now
                 </button>
-              </Link>
-              <button className="btn btn-outline border-gray-300 hover:border-blue-500 hover:text-blue-600 rounded-full px-6">
-                Share
+              <button className="btn btn-outline btn-lg rounded-full px-8 dark:text-white">
+                Share Event
               </button>
             </div>
-          </div>
         </div>
       </div>
+
+      {/* Related Events Section */}
+      {relatedEvents.length > 0 && (
+          <div className="py-10 border-t dark:border-gray-700">
+             <h2 className="text-3xl font-bold mb-8 dark:text-white">Related Events</h2>
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                 {relatedEvents.map((related) => (
+                     <div key={related._id} className="card bg-base-100 dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all h-full border dark:border-gray-700">
+                        <figure className="h-48">
+                            <img src={related.thumbnailUrl} alt={related.title} className="w-full h-full object-cover" />
+                        </figure>
+                        <div className="card-body">
+                            <h3 className="card-title text-primary dark:text-green-400 text-lg">{related.title}</h3>
+                            <p className="text-gray-500 dark:text-gray-400 text-sm line-clamp-2">{related.description}</p>
+                            <div className="card-actions justify-end mt-4">
+                                <Link to={`/event_details/${related._id}`} className="btn btn-sm btn-outline btn-primary">
+                                    View Details
+                                </Link>
+                            </div>
+                        </div>
+                     </div>
+                 ))}
+             </div>
+          </div>
+      )}
     </div>
   );
 };
